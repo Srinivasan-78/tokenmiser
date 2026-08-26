@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="#install"><img alt="install" src="https://img.shields.io/badge/npx-tokenmiser%20install-f6c453?style=flat-square"></a>
+  <a href="#install"><img alt="install" src="https://img.shields.io/badge/npx-%40srinivasan--78%2Ftokenmiser-f6c453?style=flat-square"></a>
   <img alt="node" src="https://img.shields.io/badge/node-%E2%89%A518.17-4c6ef5?style=flat-square">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-12b886?style=flat-square">
   <img alt="skills" src="https://img.shields.io/badge/skills-15-999?style=flat-square">
@@ -20,7 +20,7 @@ Claude Code is an assistant that lives in your terminal and writes code with you
 That's it. No service to sign up for. Nothing runs in the background. Nothing phones home.
 
 ```bash
-npx tokenmiser@latest install
+npx @srinivasan-78/tokenmiser@latest install
 ```
 
 ---
@@ -100,14 +100,26 @@ That one insight is worth more than every other trick here combined, and it is w
 ### The quick way (recommended)
 
 ```bash
-npx tokenmiser@latest install
+npx @srinivasan-78/tokenmiser@latest install
 ```
 
-Not published to npm yet? The same command works straight from GitHub:
-
-```bash
-npx github:Srinivasan-78/tokenmiser install
-```
+> **Note the `@srinivasan-78/` scope.** The bare name `tokenmiser` on npm belongs to an
+> unrelated package by another author, so `npx tokenmiser@latest install` downloads *that*
+> package and fails — it has no `install` command. This project publishes under the scope above.
+>
+> The same installer also runs straight from GitHub, no npm publish involved:
+>
+> ```bash
+> npx github:Srinivasan-78/tokenmiser install
+> ```
+>
+> Typing either repeatedly gets old, so set an alias once:
+>
+> ```bash
+> alias tokenmiser='npx -y @srinivasan-78/tokenmiser@latest'   # add to ~/.bashrc or ~/.zshrc
+> ```
+>
+> Every `tokenmiser <command>` below assumes that alias, or a git checkout (see further down).
 
 You will see exactly what it plans to write, and it asks before writing anything.
 
@@ -129,16 +141,16 @@ Restart Claude Code, then type `/miser-help`.
 
 | Command | What it does |
 |---|---|
-| `npx tokenmiser install` | All 15 skills into `~/.claude/skills` (every project on this machine) |
-| `npx tokenmiser install --project` | Into `./.claude/skills` instead, so it can be committed with the repo |
-| `npx tokenmiser install --hook` | Also installs the tool-output filter and wires it into `settings.json` (backing it up first) |
-| `npx tokenmiser install --only audit,bench,speak` | Just the skills you name — the prefix is optional |
-| `npx tokenmiser install --dry-run` | Prints the plan, writes nothing |
-| `npx tokenmiser install --copy` / `--link` | Force copying or symlinking (default picks for you) |
-| `npx tokenmiser status` | What is installed, where, and what it costs you per session |
-| `npx tokenmiser doctor` | Checks Node, Python, config paths, session logs |
-| `npx tokenmiser uninstall` | Removes every `miser-*` skill it installed |
-| `npx tokenmiser audit` / `report` | Runs the measurement scripts without setting anything up |
+| `tokenmiser install` | All 15 skills into `~/.claude/skills` (every project on this machine) |
+| `tokenmiser install --project` | Into `./.claude/skills` instead, so it can be committed with the repo |
+| `tokenmiser install --hook` | Also installs the tool-output filter and wires it into `settings.json` (backing it up first) |
+| `tokenmiser install --only audit,bench,speak` | Just the skills you name — the prefix is optional |
+| `tokenmiser install --dry-run` | Prints the plan, writes nothing |
+| `tokenmiser install --copy` / `--link` | Force copying or symlinking (default picks for you) |
+| `tokenmiser status` | What is installed, where, and what it costs you per session |
+| `tokenmiser doctor` | Checks Node, Python, config paths, session logs |
+| `tokenmiser uninstall` | Removes every `miser-*` skill it installed |
+| `tokenmiser audit` / `report` | Runs the measurement scripts without setting anything up |
 
 > **Copy or symlink?** Run from a git checkout, it symlinks, so `git pull` updates your skills instantly. Run through `npx`, it copies — because npx unpacks into a temp folder that gets deleted, and a symlink into a deleted folder is a broken skill.
 
@@ -224,7 +236,7 @@ Two scripts. Neither one sends anything anywhere — they read the session logs 
 ### What loads before you type a single word
 
 ```bash
-npx tokenmiser audit          # or: bash scripts/context-report.sh
+tokenmiser audit              # or: bash scripts/context-report.sh
 ```
 
 ```
@@ -242,7 +254,7 @@ You pay that number at the start of every session, forever, whether you use any 
 ### What your sessions actually cost
 
 ```bash
-npx tokenmiser report --since 7d
+tokenmiser report --since 7d
 ```
 
 ```
@@ -281,7 +293,7 @@ A hook is a small program that runs **before** a command's output reaches Claude
 </p>
 
 ```bash
-npx tokenmiser install --hook
+tokenmiser install --hook
 ```
 
 What it rewrites, and what it refuses to touch:
@@ -382,7 +394,7 @@ Run the tests with `npm test`.
 
 - **Token counts are estimates in two places.** `context-report.sh` uses characters ÷ 4; the real tokenizer differs. `miser-bench` reads the exact usage the API reported, so trust it far more. Cross-check in-session with `/context` and `/usage`.
 - **Dollar amounts need prices.** `scripts/rates.json` ships empty on purpose, because prices change. Fill it in, or point `$TOKENMISER_RATES` at a file outside git.
-- **The toolkit is not free either.** Every installed skill advertises ~100 tokens of name and description in every session — about 1.5k for all 15. `npx tokenmiser status` prints your figure. Delete the ones you never fire; `reference/techniques.md` still reads fine on its own.
+- **The toolkit is not free either.** Every installed skill advertises ~100 tokens of name and description in every session — about 1.5k for all 15. `tokenmiser status` prints your figure. Delete the ones you never fire; `reference/techniques.md` still reads fine on its own.
 - **Nothing here makes a wrong answer cheaper.** A model that fails twice at half price costs more than one that succeeds once. Every skill in here is written to hold quality flat; if a change breaks the work, it is a loss, and `bench/results.md` has a column for saying so.
 
 ---
@@ -390,7 +402,7 @@ Run the tests with `npm test`.
 ## Uninstall
 
 ```bash
-npx tokenmiser uninstall                    # removes every miser-* skill
+tokenmiser uninstall                        # removes every miser-* skill
 rm -rf ~/.claude/tokenmiser                 # scripts, if you installed by copy
 rm ~/.claude/hooks/filter-tool-output.py    # the filter, if you installed it
 # then delete the PreToolUse entry from ~/.claude/settings.json
@@ -403,7 +415,7 @@ Nothing else was ever written.
 ## FAQ
 
 **Do I need to keep the repo around after installing?**
-Only if you installed with symlinks (the default from a git checkout), or you want the `scripts/` and `reference/` files. `npx tokenmiser install` copies the skills, so they stand alone.
+Only if you installed with symlinks (the default from a git checkout), or you want the `scripts/` and `reference/` files. `tokenmiser install` copies the skills, so they stand alone.
 
 **Does this send my code anywhere?**
 No. Every script reads local files only. There is no network call in this repository.

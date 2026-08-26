@@ -2,13 +2,17 @@
 /**
  * tokenmiser installer CLI.
  *
- *   npx tokenmiser install            install every skill for this user (~/.claude/skills)
- *   npx tokenmiser install --project  install into ./.claude/skills instead
- *   npx tokenmiser install --hook     also install the tool-output filter hook
- *   npx tokenmiser uninstall          remove what was installed
- *   npx tokenmiser status             show what is installed and where
- *   npx tokenmiser doctor             environment checks
- *   npx tokenmiser audit | report     run the measurement scripts
+ *   npx @srinivasan-78/tokenmiser@latest install  install every skill for this user
+ *   ... install --project              install into ./.claude/skills instead
+ *   ... install --hook                 also install the tool-output filter hook
+ *   ... uninstall                      remove what was installed
+ *   ... status                         show what is installed and where
+ *   ... doctor                         environment checks
+ *   ... audit | report                 run the measurement scripts
+ *
+ * The bare npm name `tokenmiser` is owned by an unrelated package, so this one
+ * publishes scoped as @srinivasan-78/tokenmiser. `npx github:Srinivasan-78/tokenmiser`
+ * runs the same installer straight from the repo.
  *
  * No dependencies. Node >= 18.17. Nothing is written without consent:
  * every mutation is listed first and needs a y/N answer (or --yes).
@@ -335,22 +339,25 @@ function help() {
   say(`${C.b('tokenmiser')} — token-reduction toolkit for Claude Code
 
 ${C.b('install')}
-  npx tokenmiser@latest install              install all skills into ~/.claude/skills
-  npx tokenmiser install --project           install into ./.claude/skills instead
-  npx tokenmiser install --hook              also install the tool-output filter hook
-  npx tokenmiser install --only audit,bench  install a subset (prefix optional)
-  npx tokenmiser install --copy | --link     force copy or symlink (default: auto)
-  npx tokenmiser install --dry-run           print the plan, write nothing
-  npx tokenmiser install --yes               no prompt (implied when not a TTY)
+  npx @srinivasan-78/tokenmiser@latest install  install all skills into ~/.claude/skills
+  tokenmiser install --project               install into ./.claude/skills instead
+  tokenmiser install --hook                  also install the tool-output filter hook
+  tokenmiser install --only audit,bench      install a subset (prefix optional)
+  tokenmiser install --copy | --link         force copy or symlink (default: auto)
+  tokenmiser install --dry-run               print the plan, write nothing
+  tokenmiser install --yes                   no prompt (implied when not a TTY)
+
+  ${C.dim('note the scope: the bare npm name `tokenmiser` is another author\'s package.')}
+  ${C.dim("alias tokenmiser='npx -y @srinivasan-78/tokenmiser@latest'")}
 
 ${C.b('manage')}
-  npx tokenmiser status                      what is installed, where, and its token cost
-  npx tokenmiser doctor                      environment checks
-  npx tokenmiser uninstall [--project]       remove installed miser-* skills
+  tokenmiser status                          what is installed, where, and its token cost
+  tokenmiser doctor                          environment checks
+  tokenmiser uninstall [--project]           remove installed miser-* skills
 
 ${C.b('measure')}
-  npx tokenmiser audit                       always-on context report
-  npx tokenmiser report --since 7d           per-turn token usage from session logs
+  tokenmiser audit                           always-on context report
+  tokenmiser report --since 7d               per-turn token usage from session logs
 
 ${C.dim('scope: --project writes to ./.claude/skills (checked in with the repo);')}
 ${C.dim('default writes to ~/.claude/skills (this machine, every project).')}`);
