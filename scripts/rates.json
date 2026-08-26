@@ -1,0 +1,4 @@
+{
+  "_comment": "USD per 1M tokens. Fill from https://platform.claude.com/docs/en/about-claude/pricing. Empty = tokens-only reporting. cacheRead/cacheWrite default to 0.1x and 1.25x of input when omitted.",
+  "default": null
+}
