@@ -1,0 +1,7 @@
+{
+  "name": "tokenmiser",
+  "version": "0.1.0",
+  "description": "Token-reduction toolkit for Claude Code: output compression (caveman-compatible), context diet, retrieval discipline, delegation contracts, model routing, and a measurement harness.",
+  "author": { "name": "srini" },
+  "keywords": ["tokens", "cost", "context", "caveman", "compression"]
+}
