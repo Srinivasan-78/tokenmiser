@@ -10,6 +10,11 @@ A hook runs outside the model. Anything it filters is never paid for. Reported: 
 ## Install the filter
 
 ```bash
+npx tokenmiser install --hook     # copy + settings.json entry, with a backup
+```
+By hand:
+
+```bash
 mkdir -p ~/.claude/hooks
 cp "$MISER/hooks/filter-tool-output.py" ~/.claude/hooks/
 chmod +x ~/.claude/hooks/filter-tool-output.py
@@ -30,16 +35,28 @@ chmod +x ~/.claude/hooks/filter-tool-output.py
 Verify: `/hooks` lists it under PreToolUse; `claude --debug` shows `modified tool input keys: [command]` on a rewritten command. Test offline:
 
 ```bash
+python3 ~/.claude/hooks/filter-tool-output.py --selftest                      # 14 cases
 echo '{"tool_input":{"command":"npm test"}}' | python3 ~/.claude/hooks/filter-tool-output.py
 ```
 
 ## What it rewrites
 
-Test runners keep only failures with 5 lines of context; builds keep errors; installs keep the tail; container and journal logs keep error lines; `git log` gets `--oneline | head -30`; `git diff` is capped. Commands that already pipe to `head`/`tail`/`grep` are left untouched.
+Test runners keep failures with 5 lines of context; builds and type checks keep errors; installs keep the tail; linters keep findings; container and journal logs keep error lines; `git log` gets `--oneline | head -30`; `git diff` and `git show` are capped; unbounded `find` is capped.
+
+Left untouched: anything already piped or redirected, any compound command (`&&`, `||`, `;`), and already-bounded forms such as `git log -1 --format=%H` or `git diff --stat` — appending a pipe there would change what runs.
+
+Filtered test and build commands end with `exit ${PIPESTATUS[0]}` and a one-line `[tokenmiser] exit=N` marker, so a suppressed failure can never read as a pass.
+
+Turn it off for one shell: `TOKENMISER_FILTER_OFF=1`.
 
 ## Extend it
 
-Add a `(regex, template)` pair to `RULES` in the script. Rules for your repo:
+Add rules without editing the script — `~/.claude/tokenmiser-filter.json`:
+
+```json
+{ "rules": [["^my-runner\\b", "{cmd} 2>&1 | tail -40"], ["^chatty-lint\\b", "{cmd} | grep -v '^info'"]] }
+```
+`{cmd}` is the original command, `{args}` everything after the first word. User rules run after the built-ins. Or add a `(regex, template)` pair to `RULES` in the script itself. Rules for your repo:
 - Custom test runner: keep the failure summary block only.
 - Chatty linter: `| grep -v '^info'`.
 - Data files: `head -5` plus `wc -l` instead of the file.

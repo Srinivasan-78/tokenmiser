@@ -17,8 +17,13 @@ node "$B" session latest                 # one session: tools, models, per-turn
 node "$B" compare <sessA> <sessB>        # two runs of the same task
 node "$B" baseline save pre              # snapshot everything
 node "$B" baseline diff pre post         # aggregate before/after
+node "$B" report --main-only             # exclude subagent (sidechain) turns
+node "$B" baseline list                  # what snapshots exist
 node "$B" report --json                  # machine-readable
 ```
+No `MISER` set? `npx tokenmiser report --since 7d` runs the same script.
+
+Usage records are deduplicated by request id — Claude Code writes several log lines per assistant response, and counting them all inflates a session by 2-3x. `session <id>` prints how many were skipped.
 In session: `/usage` (attribution to skills, subagents, plugins, MCP; behavior flags), `/context` (live breakdown), `/insights` (habits report).
 
 ## The four numbers

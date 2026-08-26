@@ -14,7 +14,7 @@ bash "$MISER/scripts/context-report.sh"                 # always-on load
 node "$MISER/scripts/miser-bench.mjs" report --since 7d  # last week per-turn cost
 node "$MISER/scripts/miser-bench.mjs" baseline save pre  # snapshot for later A/B
 ```
-`$MISER` = this plugin root. Report the two headline numbers back: **eff input/turn** and **always-on tokens**. Every later change is judged against them.
+`$MISER` = this package root. If it is unset, run `npx tokenmiser audit` and `npx tokenmiser report --since 7d` instead — same scripts, no env var. Report the two headline numbers back: **eff input/turn** and **always-on tokens**. Every later change is judged against them.
 
 ## Step 1 — settings.json
 
@@ -44,8 +44,10 @@ Rules:
 ## Step 2 — tool-output filter hook
 
 ```bash
+npx tokenmiser install --hook          # copies the hook AND merges the settings.json entry (backs it up first)
+# or by hand:
 mkdir -p ~/.claude/hooks && cp "$MISER/hooks/filter-tool-output.py" ~/.claude/hooks/ && chmod +x ~/.claude/hooks/filter-tool-output.py
-echo '{"tool_input":{"command":"npm test"}}' | python3 ~/.claude/hooks/filter-tool-output.py   # expect a rewritten command
+python3 ~/.claude/hooks/filter-tool-output.py --selftest    # 14 cases, all must pass
 ```
 Verify with `/hooks` (must appear under PreToolUse). Biggest single win when the repo has noisy test/build output: a 10k-line log becomes ~100 lines.
 

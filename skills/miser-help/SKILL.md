@@ -7,6 +7,16 @@ description: Index of the tokenmiser skills — what each one does, which token 
 
 `why use many token when few do trick` — applied to the whole context, not just the output.
 
+## Install / manage
+
+```bash
+npx tokenmiser@latest install          # all skills into ~/.claude/skills
+npx tokenmiser install --project       # or into ./.claude/skills for this repo
+npx tokenmiser install --hook          # plus the tool-output filter hook
+npx tokenmiser status                  # what is installed, and its token cost
+```
+Set `MISER` to the package root so the skills can call the scripts (`npx tokenmiser install` prints the line).
+
 ## Skills
 
 | Skill | Lever | Run it when |
@@ -41,4 +51,4 @@ Per-turn cost = always-on context (CLAUDE.md + skills + tools + MCP) + conversat
 
 ## Cost of this toolkit
 
-Each installed skill advertises ~100 tokens of name and description every session. 14 skills ~= 1.4k tokens. Uninstall the ones you never fire (delete the directory or disable the plugin); the catalog in `reference/techniques.md` stays readable either way.
+Each installed skill advertises ~100 tokens of name and description every session. 15 skills ~= 1.5k tokens. Uninstall the ones you never fire (delete the directory or disable the plugin); the catalog in `reference/techniques.md` stays readable either way.
