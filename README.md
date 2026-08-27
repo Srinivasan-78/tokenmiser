@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="#install"><img alt="install" src="https://img.shields.io/badge/npx-%40srinivasan--78%2Ftokenmiser-f6c453?style=flat-square"></a>
+  <a href="#install"><img alt="install" src="https://img.shields.io/badge/npx-github%3ASrinivasan--78%2Ftokenmiser-f6c453?style=flat-square"></a>
   <img alt="node" src="https://img.shields.io/badge/node-%E2%89%A518.17-4c6ef5?style=flat-square">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-12b886?style=flat-square">
   <img alt="skills" src="https://img.shields.io/badge/skills-15-999?style=flat-square">
@@ -20,7 +20,7 @@ Claude Code is an assistant that lives in your terminal and writes code with you
 That's it. No service to sign up for. Nothing runs in the background. Nothing phones home.
 
 ```bash
-npx @srinivasan-78/tokenmiser@latest install
+npx github:Srinivasan-78/tokenmiser install
 ```
 
 ---
@@ -97,29 +97,53 @@ That one insight is worth more than every other trick here combined, and it is w
 
 ## Install
 
-### The quick way (recommended)
+Pick whichever line matches what the machine already has. All three end in the same place:
+15 skills in `~/.claude/skills`.
+
+### With Node (recommended)
 
 ```bash
-npx @srinivasan-78/tokenmiser@latest install
+npx github:Srinivasan-78/tokenmiser install
 ```
 
-> **Note the `@srinivasan-78/` scope.** The bare name `tokenmiser` on npm belongs to an
-> unrelated package by another author, so `npx tokenmiser@latest install` downloads *that*
-> package and fails — it has no `install` command. This project publishes under the scope above.
+Runs straight from the repo — nothing needs to be published to npm, and `@latest` is
+whatever is on `main`.
+
+> **Why not `npx tokenmiser`?** The bare name on npm belongs to an unrelated package by
+> another author, so that command downloads *that* one and fails — it has no `install`
+> command. This project is not on the npm registry yet; the `github:` form above is the
+> supported Node path.
 >
-> The same installer also runs straight from GitHub, no npm publish involved:
->
-> ```bash
-> npx github:Srinivasan-78/tokenmiser install
-> ```
->
-> Typing either repeatedly gets old, so set an alias once:
+> Typing it repeatedly gets old, so set an alias once:
 >
 > ```bash
-> alias tokenmiser='npx -y @srinivasan-78/tokenmiser@latest'   # add to ~/.bashrc or ~/.zshrc
+> alias tokenmiser='npx -y github:Srinivasan-78/tokenmiser'   # add to ~/.bashrc or ~/.zshrc
 > ```
 >
 > Every `tokenmiser <command>` below assumes that alias, or a git checkout (see further down).
+
+### Without Node, one line
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Srinivasan-78/tokenmiser/main/install.sh | bash
+```
+
+Needs `git` and `bash`, nothing else. It clones into `~/.tokenmiser` (re-running updates
+that checkout) and symlinks the skills out of it, so `git -C ~/.tokenmiser pull` updates
+every skill at once. Pass options after `-s --`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Srinivasan-78/tokenmiser/main/install.sh | bash -s -- --hook
+```
+
+Set `TOKENMISER_HOME` to clone somewhere other than `~/.tokenmiser`.
+
+### Inside Claude Code, no shell at all
+
+```
+/plugin marketplace add Srinivasan-78/tokenmiser
+/plugin install tokenmiser@tokenmiser
+```
 
 You will see exactly what it plans to write, and it asks before writing anything.
 
@@ -154,14 +178,7 @@ Restart Claude Code, then type `/miser-help`.
 
 > **Copy or symlink?** Run from a git checkout, it symlinks, so `git pull` updates your skills instantly. Run through `npx`, it copies — because npx unpacks into a temp folder that gets deleted, and a symlink into a deleted folder is a broken skill.
 
-### As a Claude Code plugin
-
-```
-/plugin marketplace add Srinivasan-78/tokenmiser
-/plugin install tokenmiser@tokenmiser
-```
-
-### From a checkout, without Node
+### From a git checkout
 
 ```bash
 git clone https://github.com/Srinivasan-78/tokenmiser

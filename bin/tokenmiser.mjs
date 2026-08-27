@@ -2,7 +2,7 @@
 /**
  * tokenmiser installer CLI.
  *
- *   npx @srinivasan-78/tokenmiser@latest install  install every skill for this user
+ *   npx github:Srinivasan-78/tokenmiser install     install every skill for this user
  *   ... install --project              install into ./.claude/skills instead
  *   ... install --hook                 also install the tool-output filter hook
  *   ... uninstall                      remove what was installed
@@ -10,9 +10,10 @@
  *   ... doctor                         environment checks
  *   ... audit | report                 run the measurement scripts
  *
- * The bare npm name `tokenmiser` is owned by an unrelated package, so this one
- * publishes scoped as @srinivasan-78/tokenmiser. `npx github:Srinivasan-78/tokenmiser`
- * runs the same installer straight from the repo.
+ * The bare npm name `tokenmiser` is owned by an unrelated package by another author,
+ * and this one is not on the registry, so the `github:` form above is the Node path.
+ * No-Node alternative:
+ *   curl -fsSL https://raw.githubusercontent.com/Srinivasan-78/tokenmiser/main/install.sh | bash
  *
  * No dependencies. Node >= 18.17. Nothing is written without consent:
  * every mutation is listed first and needs a y/N answer (or --yes).
@@ -339,7 +340,7 @@ function help() {
   say(`${C.b('tokenmiser')} — token-reduction toolkit for Claude Code
 
 ${C.b('install')}
-  npx @srinivasan-78/tokenmiser@latest install  install all skills into ~/.claude/skills
+  npx github:Srinivasan-78/tokenmiser install     install all skills into ~/.claude/skills
   tokenmiser install --project               install into ./.claude/skills instead
   tokenmiser install --hook                  also install the tool-output filter hook
   tokenmiser install --only audit,bench      install a subset (prefix optional)
@@ -347,8 +348,9 @@ ${C.b('install')}
   tokenmiser install --dry-run               print the plan, write nothing
   tokenmiser install --yes                   no prompt (implied when not a TTY)
 
-  ${C.dim('note the scope: the bare npm name `tokenmiser` is another author\'s package.')}
-  ${C.dim("alias tokenmiser='npx -y @srinivasan-78/tokenmiser@latest'")}
+  ${C.dim('not on npm: the bare name `tokenmiser` is another author\'s package. use the github: form.')}
+  ${C.dim('no node? curl -fsSL https://raw.githubusercontent.com/Srinivasan-78/tokenmiser/main/install.sh | bash')}
+  ${C.dim("alias tokenmiser='npx -y github:Srinivasan-78/tokenmiser'")}
 
 ${C.b('manage')}
   tokenmiser status                          what is installed, where, and its token cost

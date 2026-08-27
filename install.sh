@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-# Bash installer for tokenmiser — the no-Node path. Prefer `npx tokenmiser install`.
+# Bash installer for tokenmiser — the no-Node path.
+#
+# Anywhere, in one line (clones into ~/.tokenmiser first):
+#   curl -fsSL https://raw.githubusercontent.com/Srinivasan-78/tokenmiser/main/install.sh | bash
+#   ... | bash -s -- --hook --copy      pass options after `-s --`
 #
 #   ./install.sh                 symlink every skill into ~/.claude/skills
 #   ./install.sh --project       into ./.claude/skills instead
@@ -9,7 +13,24 @@
 #   ./install.sh --uninstall     remove installed miser-* skills
 set -euo pipefail
 
-SRC="$(cd "$(dirname "$0")" && pwd)"
+SRC="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" 2>/dev/null && pwd || echo "$PWD")"
+REPO="${TOKENMISER_REPO:-https://github.com/Srinivasan-78/tokenmiser.git}"
+
+# Piped from curl (or otherwise run away from the tree): fetch a checkout, then re-exec
+# from it so symlinks point at something that still exists tomorrow.
+if [ ! -d "$SRC/skills" ]; then
+  HOME_DIR="${TOKENMISER_HOME:-$HOME/.tokenmiser}"
+  command -v git >/dev/null 2>&1 || { echo "git is required for the one-line install" >&2; exit 1; }
+  if [ -d "$HOME_DIR/.git" ]; then
+    echo "updating $HOME_DIR"
+    git -C "$HOME_DIR" pull --ff-only --quiet || echo "warning: could not update $HOME_DIR, using it as is" >&2
+  else
+    echo "cloning tokenmiser into $HOME_DIR"
+    git clone --depth 1 --quiet "$REPO" "$HOME_DIR"
+  fi
+  exec bash "$HOME_DIR/install.sh" "$@"
+fi
+
 CLAUDE_HOME="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 DST="$CLAUDE_HOME/skills"
 MODE=link; DRY=0; HOOK=0; UNINSTALL=0
@@ -22,7 +43,7 @@ for a in "$@"; do
     --hook) HOOK=1 ;;
     --dry-run|-n) DRY=1 ;;
     --uninstall) UNINSTALL=1 ;;
-    --help|-h) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --help|-h) sed -n '2,13p' "$SRC/install.sh" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "unknown option: $a (try --help)" >&2; exit 2 ;;
   esac
 done
