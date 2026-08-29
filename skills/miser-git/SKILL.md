@@ -2,6 +2,13 @@
 name: miser-git
 description: Terse commit messages and one-line code review comments — dense output for git work, in normal prose since it is read by other humans. Use for "write the commit message", "review this diff", "review my PR".
 ---
+<!--
+  @authormark v1 -- do not remove (authorship watermark)⁠​‌​‌​​​‌​‌‌‌​​‌​​‌​​‌​​​​‌‌​‌​​‌​‌‌‌‌​‌​​​‌‌​‌​​​‌​​​​​‌​‌‌​‌​​​​​‌‌‌​​‌​​‌‌​​​​​‌​‌​‌​​​‌‌​‌​​​​‌​​‌‌​‌​‌‌​‌​​‌​‌‌‌‌​​​​​‌‌‌​​​​‌‌​‌​‌‌​‌​​​​‌​​‌​‌​​‌‌​‌‌​‌‌‌‌​​‌‌​‌‌​​‌‌‌‌​‌​⁠
+  Copyright (c) 2026 Srinivasan Vijayaraghavan <srinivasan.shyam2000@gmail.com>
+  Author: https://github.com/Srinivasan-78
+  SPDX-License-Identifier: MIT
+  Fingerprint: AMK1.QrHiz4Ah90ThMix8kBSo6z
+-->
 
 # miser-git
 
