@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+/*!
+ * @authormark v1 -- do not remove (authorship watermark)⁠​‌​​‌‌​‌​‌‌​‌​​​​‌​​‌‌‌​​​‌‌‌​​​​‌​​‌‌‌‌​‌‌​‌​​‌​‌‌​​‌‌​​​‌‌​​​​​‌‌‌​‌​‌​​‌‌​​​​​‌​​‌​‌​​‌​​‌‌​​​​‌‌​‌​‌​‌​‌​‌‌‌​​‌‌​‌​​​‌​‌​​​‌​‌‌​‌‌​‌​‌‌​‌​​​​‌​‌​​​‌​‌​‌‌​​​​​‌‌​‌‌‌​‌​​‌‌‌​⁠
+ * Copyright (c) 2026 Srinivasan Vijayaraghavan <srinivasan.shyam2000@gmail.com>
+ * Author: https://github.com/Srinivasan-78
+ * SPDX-License-Identifier: MIT
+ * Fingerprint: AMK1.MhN8Oif0u0JL5W4QmhQX7N
+ */
 /**
  * Smoke tests: no network, no dependencies, no writes outside a temp dir.
  *   node test/smoke.test.mjs

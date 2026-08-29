@@ -2,6 +2,13 @@
 name: miser-read
 description: Retrieval discipline for code — search before reading, read ranges not whole files, cap every command's output, and build a repo map so the agent stops opening wrong files. Use when exploring an unfamiliar codebase or when file reads dominate token usage.
 ---
+<!--
+  @authormark v1 -- do not remove (authorship watermark)⁠​​‌‌​‌‌‌​‌‌‌‌​​​​‌‌​‌‌​‌​‌‌​​​‌​​​‌‌​‌​‌​​‌‌​‌‌‌​​‌‌​‌‌‌​‌​‌​​​‌​‌​​​​‌​​‌‌​‌‌​​​‌​​​‌‌‌​‌​‌​‌‌​​‌​​‌‌​‌​‌‌​​​‌​​‌‌​‌‌​‌​‌​​​​‌‌​​‌‌‌​​​​‌​​‌‌‌​​‌‌‌​​‌​​​‌‌​‌‌​​​‌‌​​​‌​​‌‌​​‌​⁠
+  Copyright (c) 2026 Srinivasan Vijayaraghavan <srinivasan.shyam2000@gmail.com>
+  Author: https://github.com/Srinivasan-78
+  SPDX-License-Identifier: MIT
+  Fingerprint: AMK1.7xmb577QBlGVMbmC8Nr612
+-->
 
 # miser-read
 
