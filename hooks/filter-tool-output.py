@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# @authormark v1 -- do not remove (authorship watermark)⁠​‌‌​​‌‌​​‌‌‌​​‌‌​​‌‌​‌​​​‌​‌​​‌​​‌‌​‌​‌‌​‌‌​​‌​​​​‌‌​‌‌‌​​‌‌‌​​​​‌​​‌‌​‌​​‌‌‌​​‌​‌​‌​‌‌​​‌​​‌‌​​​​‌‌​​‌‌​‌‌​​‌‌‌​‌​‌‌​​​​‌​‌​​‌​​‌​​​​‌​​​‌‌​​‌​​‌​​‌‌​​​‌‌‌​‌​‌​​‌​‌‌​‌​‌​‌​‌‌‌⁠
+# @authormark v1 -- do not remove (authorship watermark)⁠​‌​​​‌‌​​‌​‌​​​​​‌​​‌​​‌​‌​‌‌​​​​‌‌​‌​‌‌​​‌‌​​‌‌​‌​​​‌​​​​‌‌​‌‌​​‌‌​​​​‌​‌‌‌‌​‌​​‌​​​​​‌​‌‌‌‌​‌​​‌​‌​‌​‌​‌‌‌‌​‌​​‌‌​‌‌‌‌​‌​​​‌​​​‌​​​‌​‌​‌​‌‌​​​​‌‌​‌‌‌​​‌​​​‌​‌​​‌‌‌​​​​‌‌​‌‌​​⁠
 # Copyright (c) 2026 Srinivasan Vijayaraghavan <srinivasan.shyam2000@gmail.com>
 # Author: https://github.com/Srinivasan-78
 # SPDX-License-Identifier: MIT
-# Fingerprint: AMK1.fs4Rkd78M9VL3gXRB2Lu-W
+# Fingerprint: AMK1.FPIXk3D6azAzUzoDEXnE8l
 """PreToolUse(Bash) hook: rewrite noisy commands so only decisive lines enter context.
 
 A hook runs outside the model, so anything it filters is never paid for. A 10,000-line
@@ -29,6 +29,11 @@ import json
 import os
 import re
 import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+if hasattr(sys.stdin, "reconfigure"):
+    sys.stdin.reconfigure(encoding="utf-8")
 
 CONFIG_PATH = os.path.join(
     os.environ.get("CLAUDE_CONFIG_DIR", os.path.expanduser("~/.claude")),
