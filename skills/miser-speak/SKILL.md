@@ -14,6 +14,8 @@ description: Terse output mode (caveman-compatible) that cuts response tokens wh
 
 Output tokens are the expensive half. Sample answer: 69 tokens normal, 19 tokens compressed — same fix.
 
+Scope: this trims prose only. It does not touch reasoning tokens or context, and on a coding task where output is a small fraction of the turn the net effect can be nil — one benchmark measured +7% total. Pair with the input-side skills; do not expect this one to move a big bill alone.
+
 `/miser-speak <level>` — `lite` | `full` (default) | `ultra` | `wenyan-lite` | `wenyan-full` | `wenyan-ultra` | `off`.
 
 ## Persistence

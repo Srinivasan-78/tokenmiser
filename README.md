@@ -211,7 +211,7 @@ Each one is a Markdown file of instructions. Claude only reads the full file whe
 | `/miser-compress` | shrinks `CLAUDE.md` and memory files | your rulebook has grown past 200 lines |
 | `/miser-session` | history size | `/clear` vs `/compact`, handoff files, cache misses |
 | `/miser-read` | file reads | exploring a codebase you don't know |
-| `/miser-tools` | tool schemas | MCP servers are eating the window |
+| `/miser-tools` | tool schemas | MCP servers are eating the window; tool-search, code-execution |
 | `/miser-delegate` | subagents | wide searches, verbose output |
 | `/miser-model` | model + thinking budget | you are paying Opus prices for renaming a variable |
 | `/miser-prompt` | how you ask | your requests keep triggering repo-wide scans |
@@ -406,7 +406,7 @@ tokenmiser/
 │   ├── miser-bench.mjs         token accounting from session logs
 │   └── rates.json              optional USD prices, so reports show dollars
 ├── hooks/filter-tool-output.py the PreToolUse filter (has a --selftest)
-├── reference/techniques.md     40 techniques, with sources and reported numbers
+├── reference/techniques.md     52 techniques, with sources and reported numbers
 ├── bench/results.md            your own A/B log
 └── test/smoke.test.mjs         20 tests, no network, no dependencies
 ```
@@ -421,6 +421,9 @@ Run the tests with `npm test`. Every pull request and push to main runs these sm
 - **Dollar amounts need prices.** `scripts/rates.json` ships empty on purpose, because prices change. Fill it in, or point `$TOKENMISER_RATES` at a file outside git.
 - **The toolkit is not free either.** Every installed skill advertises ~100 tokens of name and description in every session — about 1.5k for all 15. `tokenmiser status` prints your figure. Delete the ones you never fire; `reference/techniques.md` still reads fine on its own.
 - **Nothing here makes a wrong answer cheaper.** A model that fails twice at half price costs more than one that succeeds once. Every skill in here is written to hold quality flat; if a change breaks the work, it is a loss, and `bench/results.md` has a column for saying so.
+- **Terse output is the small lever.** `/miser-speak` trims prose only — not reasoning, not context. On a coding task where the reply is a fraction of the turn, the net can be nothing; one benchmark measured +7% total. It earns its place as a habit, not as a fix for a large bill — the input-side skills are where the tokens are.
+- **A newer model is not a like-for-like swap.** Tokenizers differ between model families; the same text has been reported to tokenize ~35% larger on a newer Claude tokenizer. Per-token price is unchanged, effective per-request cost is not. Benchmark a real task before migrating.
+- **Trust the cache numbers, but check them.** A provider-side caching bug in March 2026 inflated billed tokens 10–20x with no error surfaced. Read `cache read` vs `cache write` separately (`/cost`, or `miser-bench`), not just the total.
 
 ---
 

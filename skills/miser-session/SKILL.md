@@ -25,6 +25,8 @@ Every request re-sends the whole conversation. Per-turn cost is set by history s
 
 Custom compaction focus: `/compact Focus on the failing test and the files changed`. Or set persistent instructions in CLAUDE.md under a `# Compact instructions` heading.
 
+Re-seed after a compaction instead of letting it drop context you need: a `SessionStart` hook with `source: compact`, or a `PostCompact` hook, injects a short brief (open files, next step) once — cheaper than the model re-deriving it over the next few turns. See `/miser-hooks`.
+
 ## Handoff file
 
 Before `/clear` on unfinished work, write `.claude/session-handoff.md`:
@@ -47,7 +49,7 @@ Context is re-read at the cached rate — cheap, but only on a hit. Misses repro
 - Long idle sessions: prefer `/clear` over leaving a large context parked, then resume from a summary if offered.
 - Do not schedule wakeups purely to keep a cache warm — the wakeup costs a full-context request.
 
-Check with `node "$MISER/scripts/miser-bench.mjs" session latest` — cache read share under ~80% means misses.
+Check with `node "$MISER/scripts/miser-bench.mjs" session latest` — cache read share under ~80% means misses. In session, `/cost` reports the hit ratio, miss count, re-cached tokens, and warm/cold state (Claude Code 2.1.251+), and names the likely cause of the last miss — e.g. "tool definitions changed" (2.1.260+). A statusline script can read the same from the `prompt_cache` and `current_usage` objects to watch it live.
 
 ## Plan mode
 

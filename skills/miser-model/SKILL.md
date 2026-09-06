@@ -26,9 +26,11 @@ Apply it: `/model` to switch mid-session, `/config` for the default, `model: hai
 
 Switching models mid-session changes the prefix and can cost a cache miss — switch at task boundaries, not per message.
 
+Tokenizers differ across model families: the same text can tokenize ~35% larger on a newer model (reported for the Opus 4.7 tokenizer). Per-token price unchanged, effective per-request cost is not — benchmark a real task before migrating, do not assume a like-for-like swap.
+
 ## Thinking budget
 
-- `/effort low|medium|high` is the primary control. Drop to low for mechanical work.
+- `/effort low|medium|high` is the primary control. Drop to low for mechanical work. Current models show the active effort level in the statusline (Claude Code 2.1.119+).
 - `MAX_THINKING_TOKENS=8000` caps fixed-budget models. Adaptive-reasoning models ignore a nonzero budget — use effort there.
 - Turn thinking off in `/config` for repetitive edit loops (not available on models that always think).
 - Reported: dynamic thinking budgets cut thinking spend 50-75% with little quality loss on routine tasks.

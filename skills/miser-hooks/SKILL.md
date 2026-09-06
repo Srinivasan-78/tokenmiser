@@ -77,7 +77,12 @@ The cheapest token is the one no model spends. Run linters, type checks, formatt
 ## Other hook levers
 
 - **PostToolUse** on `Edit`: run the formatter and the type checker, feed back only errors.
-- **SessionStart**: inject a 10-line project brief instead of a 200-line CLAUDE.md.
+- **SessionStart**: inject a 10-line project brief instead of a 200-line CLAUDE.md. Fires again on resume and after a compaction with `source` set to `resume` / `compact` — use the `compact` case to restore context the compaction dropped.
+- **PreCompact**: back up the transcript before the compaction runs.
+- **PostCompact**: re-inject the few facts the next turns will need (open files, next step) so the model does not re-derive them.
 - **Stop**: append a handoff file so the next session starts small (`/miser-session`).
+- **UserPromptSubmit**: conditionally inject only the context this prompt needs. Its output is added on **every** prompt, so keep it minimal and targeted — an unconditional block here is a per-turn tax.
+
+A hook that emits context runs on every matching event, useful turn or not — weigh its standing cost like any always-on block.
 
 Hooks execute shell commands with your permissions. Read any hook before installing it.
