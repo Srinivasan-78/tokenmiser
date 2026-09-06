@@ -14,6 +14,7 @@
   <img alt="node" src="https://img.shields.io/badge/node-%E2%89%A518.17-4c6ef5?style=flat-square">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-12b886?style=flat-square">
   <img alt="skills" src="https://img.shields.io/badge/skills-15-999?style=flat-square">
+  <img alt="ci" src="https://github.com/Srinivasan-78/tokenmiser/actions/workflows/test.yml/badge.svg?style=flat-square">
 </p>
 
 ---
@@ -410,7 +411,7 @@ tokenmiser/
 └── test/smoke.test.mjs         20 tests, no network, no dependencies
 ```
 
-Run the tests with `npm test`.
+Run the tests with `npm test`. Every pull request and push to main runs these smoke tests automatically via GitHub Actions.
 
 ---
 
