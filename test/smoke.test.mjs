@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /*!
- * @authormark v1 -- do not remove (authorship watermark)⁠​‌​​‌‌​‌​‌‌​‌​​​​‌​​‌‌‌​​​‌‌‌​​​​‌​​‌‌‌‌​‌‌​‌​​‌​‌‌​​‌‌​​​‌‌​​​​​‌‌‌​‌​‌​​‌‌​​​​​‌​​‌​‌​​‌​​‌‌​​​​‌‌​‌​‌​‌​‌​‌‌‌​​‌‌​‌​​​‌​‌​​​‌​‌‌​‌‌​‌​‌‌​‌​​​​‌​‌​​​‌​‌​‌‌​​​​​‌‌​‌‌‌​‌​​‌‌‌​⁠
+ * @authormark v1 -- do not remove (authorship watermark)⁠​‌​‌​‌​​​​‌‌​‌​​​‌​‌‌​‌​​​‌‌‌​​‌​‌‌‌‌​‌​​‌‌​‌‌‌​​‌​​​‌‌​​​‌‌‌​​‌​‌‌‌​​‌‌​‌​‌‌‌‌‌​‌‌​​​‌‌​‌‌​‌​‌​​‌​‌‌​​‌​‌​​​​‌​​‌​‌​‌​​​‌​​​‌​​​‌‌​‌‌‌‌​‌‌‌​​‌​​‌​‌‌‌‌‌​​‌​‌‌​‌​​‌‌‌​​‌​‌​​​​‌​⁠
  * Copyright (c) 2026 Srinivasan Vijayaraghavan <srinivasan.shyam2000@gmail.com>
  * Author: https://github.com/Srinivasan-78
  * SPDX-License-Identifier: MIT
- * Fingerprint: AMK1.MhN8Oif0u0JL5W4QmhQX7N
+ * Fingerprint: AMK1.T4Z9znF9s_cjYBTDor_-9B
  */
 /**
  * Smoke tests: no network, no dependencies, no writes outside a temp dir.
@@ -122,9 +122,10 @@ test('rates: no prices means no $ column, not a crash', () => {
 
 // --------------------------------------------------------------- filter hook
 
+const PYTHON = process.platform === 'win32' ? 'python' : 'python3';
 const hook = path.join(ROOT, 'hooks', 'filter-tool-output.py');
 const py = (cmdString, env = {}) => {
-  const r = spawnSync('python3', [hook], {
+  const r = spawnSync(PYTHON, [hook], {
     input: JSON.stringify({ tool_input: { command: cmdString } }),
     encoding: 'utf8',
     env: { ...process.env, ...env },
@@ -135,7 +136,7 @@ const py = (cmdString, env = {}) => {
 };
 
 test('hook selftest passes', () => {
-  const r = spawnSync('python3', [hook, '--selftest'], { encoding: 'utf8' });
+  const r = spawnSync(PYTHON, [hook, '--selftest'], { encoding: 'utf8' });
   assert.equal(r.status, 0, r.stdout);
 });
 
@@ -162,7 +163,7 @@ test('hook can be disabled by env var', () => {
 });
 
 test('hook emits valid JSON on garbage input', () => {
-  const r = spawnSync('python3', [hook], { input: 'not json', encoding: 'utf8' });
+  const r = spawnSync(PYTHON, [hook], { input: 'not json', encoding: 'utf8' });
   assert.equal(r.status, 0);
   assert.deepEqual(JSON.parse(r.stdout), {});
 });
@@ -201,11 +202,11 @@ test('every skill has frontmatter with a name and a description', () => {
   for (const dir of fs.readdirSync(path.join(ROOT, 'skills'))) {
     const file = path.join(ROOT, 'skills', dir, 'SKILL.md');
     const text = fs.readFileSync(file, 'utf8');
-    const m = text.match(/^---\n([\s\S]*?)\n---\n/);
+    const m = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/);
     assert.ok(m, `${dir}: missing frontmatter`);
-    assert.match(m[1], /^name: (.+)$/m, `${dir}: no name`);
-    assert.match(m[1], /^description: (.+)$/m, `${dir}: no description`);
-    assert.equal(m[1].match(/^name: (.+)$/m)[1].trim(), dir, `${dir}: name does not match directory`);
+    assert.match(m[1], /^name:\s*(.+)$/m, `${dir}: no name`);
+    assert.match(m[1], /^description:\s*(.+)$/m, `${dir}: no description`);
+    assert.equal(m[1].match(/^name:\s*(.+)$/m)[1].trim(), dir, `${dir}: name does not match directory`);
   }
 });
 
