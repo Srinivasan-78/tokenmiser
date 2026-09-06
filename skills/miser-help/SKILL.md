@@ -35,7 +35,7 @@ Set `MISER` to the package root so the skills can call the scripts (`npx tokenmi
 | `/miser-compress` | always-on input | CLAUDE.md or memory file is fat |
 | `/miser-session` | history per turn | context filling, cache misses, long sessions |
 | `/miser-read` | file reads | exploring a codebase |
-| `/miser-tools` | tool schemas | MCP servers eating context |
+| `/miser-tools` | tool schemas | MCP servers eating context; tool-search, code-execution |
 | `/miser-delegate` | isolation | wide exploration, verbose output |
 | `/miser-model` | model + thinking | cost per turn too high for the task |
 | `/miser-prompt` | scope | requests trigger big scans |

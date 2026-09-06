@@ -28,6 +28,7 @@ Rules:
 - Do not interpolate timestamps, request IDs, or shuffled tool lists into the prefix.
 - Choose the TTL deliberately (5 minutes default, 1 hour available at a higher write price) based on your inter-request gap.
 - Agent loops with a 50k-token prefix hit dozens of times per session save the large majority of spend on that prefix.
+- Verify it worked: log `cache_read_input_tokens` vs `cache_creation_input_tokens` per call. A provider-side caching bug in March 2026 inflated billed tokens 10-20x with no error — total cost alone would not have shown it.
 
 ## 2. Cut the output
 
@@ -58,8 +59,24 @@ Offline work (backfills, evals, bulk classification) through a batch API runs at
 
 ## 8. Prompt compression
 
-Compressors (LLMLingua-style) prune low-information tokens from large context blocks — up to ~20x on compressible material. Use on retrieved documents and transcripts, never on code, credentials, or exact instructions. Measure quality before and after; compression method changes results by benchmark.
+Compressors prune low-information tokens from large context blocks — up to ~20x on compressible material. Use on retrieved documents and transcripts, never on code, credentials, or exact instructions. Measure quality before and after; compression method changes results by benchmark.
 
-## 9. Measure per workflow
+- **LLMLingua-2**: task-agnostic, BERT-scale token classifier, 3-6x faster than the perplexity-based original; the safer default.
+- **LongLLMLingua**: question-aware, for RAG — reported +21.4% answer quality at ~1/4 the tokens, and reduces the lost-in-the-middle effect.
+- The compressor is itself a model call — it pays only when the block is large and reused.
+
+## 9. Compact the data you pass
+
+For uniform, table-shaped data, JSON spends 30-40% of its tokens on repeated keys and punctuation. A row-oriented encoding — TOON (Token-Oriented Object Notation) or plain CSV — is ~40% smaller at matched retrieval accuracy, with an explicit row count and field list the model can check against.
+
+- Sweet spot: arrays of objects with the same fields. For deeply nested or ragged data, JSON is usually still better.
+- Generation-side accuracy is slightly below JSON — prefer it for context you send in, not for structured output you require back.
+- Lossless round-trip to JSON; convert at the boundary, keep JSON in your app.
+
+## 10. Code execution with MCP
+
+Instead of registering every tool and passing every intermediate result through the model, expose the tools as callable code in a sandbox and let the model write a short script: it discovers the tool it needs, calls it, filters and aggregates in the runtime, and returns only the answer. Anthropic's reported case: 150k tokens of tool definitions and chained results down to ~2k (98.7%). See `/miser-tools` §5. Costs a sandbox and extra round trips — skip under ~10 tools or when every result is already small.
+
+## 11. Measure per workflow
 
 Log `input / cache_read / cache_write / output / thinking` per call, tagged by workflow, and track cost per successful task, not cost per call. A cheaper call that fails twice is not cheaper. Export via OpenTelemetry or a gateway if you need per-user attribution.

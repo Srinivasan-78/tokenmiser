@@ -31,7 +31,9 @@ node "$B" report --json                  # machine-readable
 No `MISER` set? `npx tokenmiser report --since 7d` runs the same script.
 
 Usage records are deduplicated by request id — Claude Code writes several log lines per assistant response, and counting them all inflates a session by 2-3x. `session <id>` prints how many were skipped.
-In session: `/usage` (attribution to skills, subagents, plugins, MCP; behavior flags), `/context` (live breakdown), `/insights` (habits report).
+In session: `/usage` (attribution to skills, subagents, plugins, MCP; behavior flags), `/context` (live breakdown), `/insights` (habits report), `/cost` (prompt-cache hit ratio, misses, re-cached tokens, warm/cold, and the likely cause of the last miss — Claude Code 2.1.251+ / 2.1.260+).
+
+For a live per-turn readout without leaving the session, a statusline script can read `current_usage` (cache read vs creation this turn) and `prompt_cache` (session hit ratio); `ccusage --statusline`, `ccstatusline`, and `claude-hud` package this.
 
 ## The four numbers
 
@@ -54,6 +56,10 @@ Totals across sessions are not a scorecard — a big task legitimately costs mor
 6. Record the result in `bench/results.md`: date, change, per-turn delta, and whether the task still succeeded.
 
 Rules: one variable per run, fresh session each time (history skews everything), and record failures — a change that saves 30% of tokens and gets the answer wrong is a loss. Cache state differs between runs, so read `eff input` and `output` separately rather than only the total.
+
+## Guard quality, not just tokens
+
+Token metrics do not show a quality regression. Keep a small fixed set of prompts with known-good answers, replay them after each config change, and diff the output. A cheaper setup that quietly degrades answers is caught here, not in `compare`.
 
 ## Reporting
 

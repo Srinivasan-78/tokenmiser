@@ -19,7 +19,7 @@ Diagnose before changing anything. Read-only; propose, do not apply.
 ```bash
 bash "$MISER/scripts/context-report.sh"
 ```
-Plus, in session, `/context` (live breakdown: system prompt, tools, MCP, memory, messages) and `/usage` (attribution to skills, subagents, plugins, MCP servers, plus behavior flags such as long context or cache misses).
+Plus, in session, `/context` (live breakdown: system prompt, tools, MCP, memory, messages) and `/usage` (attribution to skills, subagents, plugins, MCP servers, plus behavior flags such as long context or cache misses). `/cost` adds prompt-cache hit ratio, miss count, and the likely cause of the last miss (Claude Code 2.1.251+ / 2.1.260+). `/plugin browse` shows each plugin's projected context cost before you install it.
 
 ## 2. Per-turn cost
 
@@ -38,7 +38,7 @@ Score each candidate `tokens x sessions_hit` and sort:
 
 | Sink | Check | Typical fix |
 |------|-------|-------------|
-| CLAUDE.md / AGENTS.md | `wc -l` > 200 | `/miser-compress`, move workflows to skills |
+| CLAUDE.md / AGENTS.md | `wc -l` > 200 | `/miser-compress`, move workflows to skills — right-size, do not delete: a study found a present AGENTS.md cut median runtime ~29% and output tokens ~17% by sparing the agent exploratory navigation |
 | memory index | MEMORY.md line count | prune stale, one line each |
 | skill listing | N skills x ~100 tokens | uninstall unused plugins/skills |
 | MCP servers | `/context` MCP row | disable, or use CLI (`/miser-tools`) |

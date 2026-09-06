@@ -34,7 +34,12 @@ rg -c "import" src | sort -t: -k2 -nr | head       # counts, not lines
 git diff --stat                                    # shape before content
 find . -name '*.test.ts' | head -40
 ```
-Never `cat` a log, a lockfile, `dist/`, `node_modules/`, or generated code. `tail -100` or grep it.
+Never `cat` a log, a lockfile, `dist/`, `node_modules/`, or generated code. `tail -100` or grep it. One `package-lock.json` is often 50k+ tokens.
+
+## Keep junk out of reach
+
+- `permissions.deny` in `.claude/settings.json` (e.g. `Read(./dist/**)`, `Read(**/*.lock)`) is the only enforced exclusion. `.claudeignore` is unofficial and unreliable — open bugs show it does not consistently block reads — so do not lean on it.
+- Start Claude in the subtree you are working in — `cd services/api && claude` — so the rest of the repo is out of scope by default.
 
 ## Search patterns that pay
 
