@@ -1,167 +1,163 @@
 {
   "schema": "authormark/manifest/1",
+  "algo": "hmac",
   "author": "Srinivasan Vijayaraghavan",
   "email": "srinivasan.shyam2000@gmail.com",
   "github": "https://github.com/Srinivasan-78",
-  "sealedAt": "2026-08-29T13:21:21.620Z",
-  "fileCount": 31,
-  "digest": "918d88f0bf9ec4733410bd1b3cbb17ab30ba5be5892e3a25a1a693ddc3f14118",
-  "proof": "a2c34298abe1adde45b8cd2696e80def7840fb1cf1cae34b47b03789690a7241",
+  "sealedAt": "2026-09-10T15:35:56.860Z",
+  "fileCount": 30,
+  "digest": "ee0643e2533d583ac4a8dd0278c511b493544d42a796516fb9355369b37a3755",
+  "proof": "068cc4130ebd17721140a819d5af413b93cb7c9fd0bdf7aeb362966c6217e3c5",
   "files": [
     {
-      "path": ".github/workflows/authormark.yml",
-      "sha256": "b5cab2b0d7b18cd416758ec39f9677144704f615095f279d00e6f47ed2164e11",
-      "bytes": 1138
-    },
-    {
       "path": "AGENTS.md",
-      "sha256": "6f4bb78900bf58971b266a4df35ff4137cd210494cc71089ecc7f3feb6130012",
-      "bytes": 1511
+      "sha256": "53b710ad57c0a402abc4678d6da6ec97f87f2be0d1a13fd964806fdd18b9e30b",
+      "bytes": 1524
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "a4f80ec424ce2382e519318c7cdbc38276dc8575a452e566c67f21c1eb0ca882",
-      "bytes": 822
+      "sha256": "75900719100103af95b31f77c0ff88bf819076b7601b72d67c6879b9b2d23750",
+      "bytes": 825
     },
     {
       "path": "README.md",
-      "sha256": "4053c7253d1d206b91f0634de2b2a9b2427edaca56fe1259431d7d2b6d95bef2",
-      "bytes": 20557
+      "sha256": "a61a268d7d4d10997894fc6e48acba74038b842ea0d82125edaa5498d3f29346",
+      "bytes": 22123
     },
     {
-      "path": "assets/every-turn.svg",
-      "sha256": "ad563b68b68e3b314162ac20013eeab66a81b8ae181101798f3d127a3ba1bf6e",
-      "bytes": 5046
+      "path": "assets\\every-turn.svg",
+      "sha256": "288997689b84e830f981c03c711e064a8d44ed52af9167c012edc86aa5065dd9",
+      "bytes": 5114
     },
     {
-      "path": "assets/hero.svg",
-      "sha256": "28884db453c3a94af81cb997df2a5dc5b5c08a4bc88c1e5654193f1b279933f6",
-      "bytes": 3240
+      "path": "assets\\hero.svg",
+      "sha256": "71f3872af5b5b9bac8b81e2752c6e20ff3be421ac709d59cc555e2a4f69e4c6a",
+      "bytes": 3289
     },
     {
-      "path": "assets/hook-before-after.svg",
-      "sha256": "88fee0d64d708f9af70c19c24e0e4ef4504c86bc349f967cb0895d0468c35a3c",
-      "bytes": 3746
+      "path": "assets\\hook-before-after.svg",
+      "sha256": "8fe20c6dff4ca4516cc5fcafd61c7c77426ec60d03aa333f509838520e030083",
+      "bytes": 3797
     },
     {
-      "path": "assets/levers.svg",
-      "sha256": "6d014a1f08b788e62e385d0227675cf72229f8a467ebd4ebdd1d491c2a01f7fe",
-      "bytes": 4203
+      "path": "assets\\levers.svg",
+      "sha256": "7e4d8ef3a46033dd7b5c26d4f9fea60e97a93431f0c3db55b5e7b34de95e1d84",
+      "bytes": 4262
     },
     {
-      "path": "bench/results.md",
-      "sha256": "0768a05b315a8df18944344d6250ed39780259c3613367b567d477bdfe588ee3",
-      "bytes": 1072
+      "path": "bench\\results.md",
+      "sha256": "dad8d6b59704afc47612d596a61fd9a250874ce06a41a74e906e63d5580effb3",
+      "bytes": 1079
     },
     {
-      "path": "bin/tokenmiser.mjs",
-      "sha256": "23e497f62da51688c6c0bf097e1fdc0fd05e3e37a6baa5e3952de16fac051840",
-      "bytes": 17781
+      "path": "bin\\tokenmiser.mjs",
+      "sha256": "970da245ebb58a971fb4319171e835331304e6625a8f81cc859149c5148d1ece",
+      "bytes": 17850
     },
     {
-      "path": "hooks/filter-tool-output.py",
-      "sha256": "d7a1122aa21681bc8aa94234bb74bf5a1bdae194771dadaf84e595a577be9fdc",
-      "bytes": 7368
+      "path": "hooks\\filter-tool-output.py",
+      "sha256": "d7eddb877c72a87bbe14e65545d3bc91d38a30cabd6c3b9773a7bd8e97301939",
+      "bytes": 7712
     },
     {
       "path": "install.sh",
-      "sha256": "1cb9274bc7506eaf8551a2f2e0ea95a51e4290f6cb373cfe86ba451653c4cd68",
-      "bytes": 4344
+      "sha256": "10cf1324f9ed57e825fb38afccb759e0bf0dee5608a4af059bec23d663931063",
+      "bytes": 4444
     },
     {
-      "path": "reference/techniques.md",
-      "sha256": "d9f2091051016281d37991cd4f1c0fe89789324dc95db857853b5a3f01147395",
-      "bytes": 8216
+      "path": "reference\\techniques.md",
+      "sha256": "e741060ee18bed0dcc58278dc9097c055802333942e5f3a7f6eccdd6950b6cc9",
+      "bytes": 11796
     },
     {
-      "path": "scripts/context-report.sh",
-      "sha256": "6d8f3964b6d99c485ef85a51d96bbc991dfa522b0b247ee9327474d75aeaa0eb",
-      "bytes": 6310
+      "path": "scripts\\context-report.sh",
+      "sha256": "e253e6d99292eed8414fbf0fd6e43dca982c0938a41a76683139b1218627f102",
+      "bytes": 6454
     },
     {
-      "path": "scripts/miser-bench.mjs",
-      "sha256": "d1dc1f653ed4df8a9ae615d67c5ceb190ffa3b6f9fe786039035f06a90f8c00c",
-      "bytes": 18425
+      "path": "scripts\\miser-bench.mjs",
+      "sha256": "eb46e36f8bee768594104e7927960cabdf2f79e21d07363abed01e6c140c877f",
+      "bytes": 18835
     },
     {
-      "path": "skills/miser-api/SKILL.md",
-      "sha256": "285ccd10890891969dcea62627d9f3c0783d80740868438227db54df22257c1f",
-      "bytes": 4304
+      "path": "skills\\miser-api\\SKILL.md",
+      "sha256": "88e593f291e13af1267d6631e8d2fe170b8b4b9037e71ff93b8c760b095ab69d",
+      "bytes": 6166
     },
     {
-      "path": "skills/miser-audit/SKILL.md",
-      "sha256": "1ac09808df4f37accf7ba420beb0f78c559fcf623546b213be0aff007212e3ac",
-      "bytes": 3693
+      "path": "skills\\miser-audit\\SKILL.md",
+      "sha256": "c8eee4f05f854c97740438adba10df39ce046072222191645103136be72249fd",
+      "bytes": 4122
     },
     {
-      "path": "skills/miser-bench/SKILL.md",
-      "sha256": "f92e7555d49caa5a35da3dbf118c8f93b57fec95f92d7fd4f0e2e9784139a8cd",
-      "bytes": 3962
+      "path": "skills\\miser-bench\\SKILL.md",
+      "sha256": "385701e3bac78922f867a93c0f442ef9130b81ceb110a4c7c5301ff1e966e546",
+      "bytes": 4703
     },
     {
-      "path": "skills/miser-compress/SKILL.md",
-      "sha256": "9056d1a358d932e716ed505d79a9e207fbef92e5a1327e4c05daefc5fa887366",
-      "bytes": 2992
+      "path": "skills\\miser-compress\\SKILL.md",
+      "sha256": "a8c0e9986f40e8fed68ac630b35b362a014cee818ec88115942aae067b8e21a3",
+      "bytes": 3035
     },
     {
-      "path": "skills/miser-delegate/SKILL.md",
-      "sha256": "0e28dff0110d6648932794d00ce7f3698b72cd910a45fb170baffd2ba994264a",
-      "bytes": 3406
+      "path": "skills\\miser-delegate\\SKILL.md",
+      "sha256": "ba0b49b846e478ec667c0913865c53488ee868b499008354cdb815137b3f7fa7",
+      "bytes": 3459
     },
     {
-      "path": "skills/miser-git/SKILL.md",
-      "sha256": "bb968409f744cc9b93a5c6bbb0f4bab6948080457760c971ea3b31c81d677fcd",
-      "bytes": 2556
+      "path": "skills\\miser-git\\SKILL.md",
+      "sha256": "54d4efe2ea7f88103d33b6f299c3ede9eb9eada596298738bf1023f301a12661",
+      "bytes": 2602
     },
     {
-      "path": "skills/miser-help/SKILL.md",
-      "sha256": "df8e3df676487007e42c3320f01ed46eee5f69e6cc3b7dc580fe9fe679dab2ec",
-      "bytes": 3510
+      "path": "skills\\miser-help\\SKILL.md",
+      "sha256": "bdab5a7f755a0ff32feca3bb9546b187d07f6b399c1b69ed3da23faaabbda9f0",
+      "bytes": 3593
     },
     {
-      "path": "skills/miser-hooks/SKILL.md",
-      "sha256": "e40634e3c6c9c373d42eca08f522fb33be407d618c9c5631fe31be377e4ebff8",
-      "bytes": 4199
+      "path": "skills\\miser-hooks\\SKILL.md",
+      "sha256": "1cced01a324029c5ff7f2e841bc6b9f2945abbff152d03a5850a2afe05a1a930",
+      "bytes": 4971
     },
     {
-      "path": "skills/miser-model/SKILL.md",
-      "sha256": "89354c73bcf49d8920e23c8253cc92950eae4ef96782e8d724285e06c743274b",
-      "bytes": 2943
+      "path": "skills\\miser-model\\SKILL.md",
+      "sha256": "90e72aa6f2f98a2a8f4d60fd1ff0153ec3ca2cabc8b43fbb280f3bb3761d8a59",
+      "bytes": 3351
     },
     {
-      "path": "skills/miser-prompt/SKILL.md",
-      "sha256": "9459ca8eb990cb3a53a93660ac7b180dc2128858799097ed5648f5ce2503026b",
-      "bytes": 2900
+      "path": "skills\\miser-prompt\\SKILL.md",
+      "sha256": "81ed93db211a53e0fd420230a35b3aaef3ce4b5392318f87d868199f4e19f03b",
+      "bytes": 2950
     },
     {
-      "path": "skills/miser-read/SKILL.md",
-      "sha256": "15591045d3b3469d14c4e3c12e1c2ef875a275e7b9f4254f7f65db7e55d0068b",
-      "bytes": 3387
+      "path": "skills\\miser-read\\SKILL.md",
+      "sha256": "6888e1b298ed660c3eb535cc925ae0234d43962d3fb9d5c4bd99eb8b0d91eeac",
+      "bytes": 3907
     },
     {
-      "path": "skills/miser-session/SKILL.md",
-      "sha256": "0490d5f06e9670a392251d227961eb9a2a89e34812d7b10bd28ed78fbc8f8f68",
-      "bytes": 3855
+      "path": "skills\\miser-session\\SKILL.md",
+      "sha256": "a8b33586e485b365c90833195d3f53b7753d1a7891983f6b382263f8248b8cb9",
+      "bytes": 4513
     },
     {
-      "path": "skills/miser-setup/SKILL.md",
-      "sha256": "484318a4edb90a44713ef3f9a575d2229d226ecee6765ab10ddf55f9d24791fa",
-      "bytes": 4700
+      "path": "skills\\miser-setup\\SKILL.md",
+      "sha256": "1e012dcf8474cb7b03e3d8b23a81c9f1daac547988ce599828a0b46672127585",
+      "bytes": 4787
     },
     {
-      "path": "skills/miser-speak/SKILL.md",
-      "sha256": "f6d090c62f09fadc9bbdb2f0822ff4dddd9ab0f6ed5af931e48845b821046eb3",
-      "bytes": 4021
+      "path": "skills\\miser-speak\\SKILL.md",
+      "sha256": "a59b6bc978887ca8b882517ae07116640e6aaf59c73af9534fc241a060afc8f9",
+      "bytes": 4371
     },
     {
-      "path": "skills/miser-tools/SKILL.md",
-      "sha256": "7efd60d0cea0fef52f918dcfe851950e6c3d0c287f6acd4d2c781b6335ce9403",
-      "bytes": 3270
+      "path": "skills\\miser-tools\\SKILL.md",
+      "sha256": "dd3645721045d05e477a9402f1054cd9f36dbb030e0f5b0c3068dd8dc367568c",
+      "bytes": 5452
     },
     {
-      "path": "test/smoke.test.mjs",
-      "sha256": "5e4ec25791a1e14e03e3ee313d39966bfec2b74fccf700eafbfcea7a013fa79f",
-      "bytes": 9362
+      "path": "test\\smoke.test.mjs",
+      "sha256": "99ecda32bc306028573fd1f894744d3c9189b44d39c316473c02dba09d527ba0",
+      "bytes": 9646
     }
   ]
 }
