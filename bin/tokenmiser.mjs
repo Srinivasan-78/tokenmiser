@@ -113,35 +113,19 @@ function describeExisting(dest) {
   try { st = fs.lstatSync(dest); } catch { return null; }
   if (st.isSymbolicLink()) {
     let target = '(unreadable)';
-    try { target = fs.readlinkSync(dest); } catch { /* ignore */ }
-    const dangling = !fs.existsSync(dest);
-    return { kind: 'link', target, dangling };
+    try { target = fs.readlinkSync(dest); } catch {}
+    return { kind: 'link', target, dangling: !fs.existsSync(dest) };
   }
   return { kind: st.isDirectory() ? 'dir' : 'file' };
 }
 
-function rmrf(p) { fs.rmSync(p, { recursive: true, force: true }); }
-
-function copyDir(src, dst) {
-  fs.mkdirSync(dst, { recursive: true });
-  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-    const s = path.join(src, entry.name);
-    const d = path.join(dst, entry.name);
-    if (entry.isDirectory()) copyDir(s, d);
-    else if (entry.isSymbolicLink()) fs.symlinkSync(fs.readlinkSync(s), d);
-    else fs.copyFileSync(s, d);
-  }
-}
-
-function readJson(file) {
-  try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; }
-}
-
-function backup(file) {
+const rmrf = (p) => fs.rmSync(p, { recursive: true, force: true });
+const readJson = (file) => { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; } };
+const backup = (file) => {
   const bak = `${file}.bak-${new Date().toISOString().replace(/[:.]/g, '-')}`;
   fs.copyFileSync(file, bak);
   return bak;
-}
+};
 
 // -------------------------------------------------------------------- install
 
@@ -187,7 +171,7 @@ async function install() {
   for (const p of plan) {
     rmrf(p.dest);
     if (mode === 'link') fs.symlinkSync(p.src, p.dest, 'junction');
-    else copyDir(p.src, p.dest);
+    else fs.cpSync(p.src, p.dest, { recursive: true });
     say(`  ${C.g('ok')} ${p.name}`);
   }
 
@@ -201,7 +185,7 @@ async function install() {
       if (!fs.existsSync(src)) continue;
       const dst = path.join(miserRoot, sub);
       rmrf(dst);
-      copyDir(src, dst);
+      fs.cpSync(src, dst, { recursive: true });
     }
     say(`  ${C.g('ok')} scripts -> ${miserRoot}`);
   }
@@ -218,6 +202,8 @@ async function install() {
   say(`  In Claude Code: ${C.b('/miser-help')} then ${C.b('/miser-setup')}`);
 }
 
+const pyBin = process.platform === 'win32' ? 'python' : 'python3';
+
 async function installHook() {
   if (!fs.existsSync(HOOK_SRC)) { warn(`hook source missing: ${HOOK_SRC}`); return; }
   const hookDir = path.join(CLAUDE_HOME, 'hooks');
@@ -233,7 +219,7 @@ async function installHook() {
     warn(`${settingsFile} is not valid JSON — leaving it alone. Add the PreToolUse entry by hand.`);
     return;
   }
-  const command = `python3 "${hookDst}"`;
+  const command = `${pyBin} "${hookDst}"`;
   settings.hooks ||= {};
   settings.hooks.PreToolUse ||= [];
   const already = settings.hooks.PreToolUse.some((e) =>
